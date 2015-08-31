@@ -1,0 +1,5 @@
+<root prop='The property of root Node'>
+	<subElement>The Sub Element</subElement>
+	<nested property='The Property'>The Nested Node</nested>
+	<number>123</number>
+</root>
