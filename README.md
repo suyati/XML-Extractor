@@ -45,11 +45,11 @@ public class NestedNodeClass
 ```
 
 
-* The Element Attribute is specified to map the Sub-Node content with the name specified. (If no name is specified, It will take the property name).
+* The Element Attribute is specified to map the Sub-Node content with the name specified to the property. (If no name is specified, it will take the property name).
 
-* The Property Attribute is specified to map the attribute of the node with the name specified. (If no name is specified, It will take the property name).
+* The Property Attribute is specified to map the attribute of the node with the name specified the property. (If no name is specified, it will take the property name).
 
-* The Value Attribute is specified to map inner Text content of the node.
+* The Value Attribute is specified to map inner Text content of the node to the property.
 
 * If no attribute present among Element,Property and Value, It will be ignored.
 
