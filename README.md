@@ -69,3 +69,16 @@ myObject.Extract(
 ```
 
 You can also pass an object of XmlNode class to the Extract() method instead of XML string.
+
+
+##Authors and Contributors
+
+XML Extractor is developed by Suyati Technologies. It is written and maintained by their Product Development team.
+
+####Author:
+
+Sharafudheen Kallayath (@sharafu_kk)
+
+##Support or Contact
+
+Have Suggestions? Want to give us something to do? Contact us at : support@suyati.com
