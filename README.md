@@ -77,7 +77,7 @@ XML Extractor is developed by Suyati Technologies. It is written and maintained 
 
 ####Author:
 
-Sharafudheen Kallayath ([@sharafu_kk](https://twitter.com/sharafu_kk))
+Sharafudheen KK ([@sharafu_kk](https://twitter.com/sharafu_kk))
 
 ##Support or Contact
 
