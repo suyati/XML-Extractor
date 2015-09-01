@@ -1,5 +1,6 @@
 # XML-Extractor
-Travis:    [![Travis](https://travis-ci.org/skkallayath/XML-Extractor.svg?branch=master)](https://travis-ci.org/skkallayath/XML-Extractor) 
+
+[![Build](https://travis-ci.org/skkallayath/XML-Extractor.svg?branch=master)](https://travis-ci.org/skkallayath/XML-Extractor) [![NuGet](http://img.shields.io/nuget/v/XMLExtractor.svg?style=flat-square)](https://www.nuget.org/packages/XMLExtractor/) [![Downloads](http://img.shields.io/nuget/dt/XMLExtractor.svg?style=flat-square)](https://www.nuget.org/packages/XMLExtractor/)
 
 This nuget package will help you to extract specified contents from an XML. You can map subnodes and attributes of an XML Node to selected properties of a class. 
 
