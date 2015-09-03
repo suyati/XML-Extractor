@@ -1,5 +1,6 @@
 # XML-Extractor
-Travis:    [![Travis](https://travis-ci.org/skkallayath/XML-Extractor.svg?branch=master)](https://travis-ci.org/skkallayath/XML-Extractor) 
+
+[![Travis](https://travis-ci.org/skkallayath/XML-Extractor.svg?branch=master)](https://travis-ci.org/skkallayath/XML-Extractor) [![NuGet](http://img.shields.io/nuget/v/XMLExtractor.svg)](https://www.nuget.org/packages/XMLExtractor/) [![Downloads](http://img.shields.io/nuget/dt/XMLExtractor.svg)](https://www.nuget.org/packages/XMLExtractor/)
 
 This nuget package will help you to extract specified contents from an XML. You can map subnodes and attributes of an XML Node to selected properties of a class. 
 
@@ -68,3 +69,16 @@ myObject.Extract(
 ```
 
 You can also pass an object of XmlNode class to the Extract() method instead of XML string.
+
+
+##Authors and Contributors
+
+XML Extractor is developed by Suyati Technologies. It is written and maintained by their Product Development team.
+
+####Author:
+
+Sharafudheen KK ([@sharafu_kk](https://twitter.com/sharafu_kk))
+
+##Support or Contact
+
+Have Suggestions? Want to give us something to do? Contact us at : support@suyati.com
