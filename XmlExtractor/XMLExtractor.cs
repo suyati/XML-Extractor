@@ -327,7 +327,20 @@
             type = Nullable.GetUnderlyingType(type) ?? type;
 
             // returning the safe value
-            return (value == null) ? null : Convert.ChangeType(value, type);
+            if (value == null) return null;
+
+            if (type == typeof(DateTime) && value is string)
+            {
+                try
+                {
+                    return Convert.ChangeType(value, type);
+                }
+                catch(FormatException e)
+                {
+                    value = TimezoneHelper.ReplaceTimezoneAbbreviation((string)value);
+                }
+            }
+            return Convert.ChangeType(value, type);
 
         }
 
