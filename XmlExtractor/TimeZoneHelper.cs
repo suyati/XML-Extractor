@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Text.RegularExpressions;
 
     internal static class TimezoneHelper
     {
@@ -19,6 +20,42 @@
                     if (dateTime.EndsWith(" " + keyVal.Key, StringComparison.InvariantCultureIgnoreCase))
                     {
                         return dateTime.Replace(" " + keyVal.Key, " " + keyVal.Value);
+                    }
+                }
+            }
+            return dateTime;
+        }
+
+        /// <summary>
+        /// To replace the timezone offset to default format
+        /// </summary>
+        /// <param name="dateTime"></param>
+        /// <param name="success"></param>
+        /// <returns></returns>
+        internal static string ReplaceOffSetToDefaultFormat(string dateTime, out bool success)
+        {
+            success = false;
+
+            // Timezone offset in the format (+/-HHMM)
+            var regex = @"(\+|\-)(\d{2})(\d{2})$";
+
+            // If matches
+            if (Regex.IsMatch(dateTime, regex))
+            {
+
+                var matches = Regex.Matches(dateTime, regex);
+                if (matches != null && matches.Count > 0)
+                {
+                    var match = matches[0];
+                    if (match.Groups != null && match.Groups.Count > 3)
+                    {
+                        // Replacing offset with default format (+/-HH:MM)
+                        var replacement = string.Format("{0}{1}:{2}",
+                            match.Groups[1].Success ? match.Groups[1].Value : "+",
+                            match.Groups[2].Success ? match.Groups[2].Value : "00",
+                            match.Groups[3].Success ? match.Groups[3].Value : "00");
+                        success = true;
+                        return Regex.Replace(dateTime, regex, replacement);
                     }
                 }
             }

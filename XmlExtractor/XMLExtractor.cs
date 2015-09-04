@@ -342,8 +342,16 @@
                 // Exception may arise if the date format ends with Timezone abbreviations (like EST, IST, etc..)
                 catch (FormatException e)
                 {
-                    // Replacing the abbreviation with corresponding Timezone Offset
-                    value = TimezoneHelper.ReplaceTimezoneAbbreviation((string)value);
+                    bool success = false;
+
+                    // Replacing the timezone off set in defautl format
+                    value = TimezoneHelper.ReplaceOffSetToDefaultFormat(value, out success);
+
+                    if(!success)
+                    {
+                        // Replacing the abbreviation with corresponding Timezone Offset
+                        value = TimezoneHelper.ReplaceTimezoneAbbreviation((string)value);
+                    }
                 }
             }
             return Convert.ChangeType(value, type);
