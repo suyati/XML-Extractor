@@ -306,7 +306,7 @@
         /// <param name="item"></param>
         /// <param name="property"></param>
         /// <param name="value"></param>
-        private static void SetStringOrValueTypeProperty<T>(T item, PropertyInfo property, object value) where T : new()
+        private static void SetStringOrValueTypeProperty<T>(T item, PropertyInfo property, string value) where T : new()
         {
             // Getting the safe Value
             var safeValue = GetStringOrValueTypeSafeValue(property.PropertyType, value);
@@ -321,13 +321,16 @@
         /// <param name="property"></param>
         /// <param name="value"></param>
         /// <returns></returns>
-        private static object GetStringOrValueTypeSafeValue(Type type, object value)
+        private static object GetStringOrValueTypeSafeValue(Type type, string value)
         {
+            // returning default value if string is empty or null
+            if (string.IsNullOrEmpty(value))
+            {
+                return GetDefault(type);
+            }
+
             // Getting the underlying Type if Nullable
             type = Nullable.GetUnderlyingType(type) ?? type;
-
-            // returning null
-            if (value == null) return null;
 
             // parsing dateTime
             if (type == typeof(DateTime) && value is string)
@@ -345,6 +348,25 @@
             }
             return Convert.ChangeType(value, type);
 
+        }
+
+        /// <summary>
+        /// To get the default value of a type
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public static object GetDefault(Type type)
+        {
+            // if Value Type
+            if (type.IsValueType)
+            {
+                // If not nullable
+                if (Nullable.GetUnderlyingType(type) == null)
+                {
+                    return Activator.CreateInstance(type);
+                }
+            }
+            return null;
         }
 
         /// <summary>
