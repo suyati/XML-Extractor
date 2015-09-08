@@ -22,7 +22,7 @@
         /// <param name="xmlNode"></param>
         public static void Extract<T>(this T item, XmlNode xmlNode)
             // The generic parameter should be a class
-            where T : new()
+            where T : class
         {
             // checking whether the xml node present
             if (xmlNode != null)
@@ -97,7 +97,7 @@
         /// <typeparam name="T"></typeparam>
         /// <param name="item"></param>
         /// <param name="xml"></param>
-        public static void Extract<T>(this T item, string xml) where T : new()
+        public static void Extract<T>(this T item, string xml) where T : class
         {
             var xmlDocument = new XmlDocument();
             xmlDocument.LoadXml(xml);
@@ -116,7 +116,7 @@
         /// <param name="xmlNode"></param>
         /// <param name="name"></param>
         /// <param name="property"></param>
-        private static void ExtractPropertyFromNode<T>(T item, XmlNode xmlNode, string name, PropertyInfo property) where T : new()
+        private static void ExtractPropertyFromNode<T>(T item, XmlNode xmlNode, string name, PropertyInfo property) where T : class
         {
             var propertyType = property.PropertyType;
             if (IsStringOrValueType(propertyType))
@@ -136,7 +136,7 @@
         /// <param name="item"></param>
         /// <param name="xmlNode"></param>
         /// <param name="property"></param>
-        private static void ExtractValueFromNode<T>(T item, XmlNode xmlNode, PropertyInfo property) where T : new()
+        private static void ExtractValueFromNode<T>(T item, XmlNode xmlNode, PropertyInfo property) where T : class
         {
             var propertyType = property.PropertyType;
             // Checking whether the type is string or Value Type
@@ -155,7 +155,7 @@
         /// <param name="xmlNode"></param>
         /// <param name="name"></param>
         /// <param name="property"></param>
-        private static void ExtractElementFromNode<T>(T item, XmlNode xmlNode, string name, PropertyInfo property) where T : new()
+        private static void ExtractElementFromNode<T>(T item, XmlNode xmlNode, string name, PropertyInfo property) where T : class
         {
             // Getting the property Type
             var propertyType = property.PropertyType;
@@ -306,7 +306,7 @@
         /// <param name="item"></param>
         /// <param name="property"></param>
         /// <param name="value"></param>
-        private static void SetStringOrValueTypeProperty<T>(T item, PropertyInfo property, string value) where T : new()
+        private static void SetStringOrValueTypeProperty<T>(T item, PropertyInfo property, string value) where T : class
         {
             // Getting the safe Value
             var safeValue = GetStringOrValueTypeSafeValue(property.PropertyType, value);
@@ -383,7 +383,7 @@
         /// <typeparam name="T"></typeparam>
         /// <param name="item"></param>
         /// <returns></returns>
-        private static object GetObjectPropertyValue<T>(T item, PropertyInfo property) where T : new()
+        private static object GetObjectPropertyValue<T>(T item, PropertyInfo property) where T : class
         {
             var value = property.GetValue(item);
             if (value == null)
