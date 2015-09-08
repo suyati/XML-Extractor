@@ -5,8 +5,6 @@ VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Suyati.XmlExtractor", "XmlExtractor\Suyati.XmlExtractor.csproj", "{F8FEFD31-6CC7-4403-A682-C2FBC6D8A156}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Suyati.XMLExtractor.Tests", "Suyati.XMLExtractor.Tests\Suyati.XMLExtractor.Tests.csproj", "{0AE59140-64EA-4283-BC25-C8E34970A36B}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,10 +15,6 @@ Global
 		{F8FEFD31-6CC7-4403-A682-C2FBC6D8A156}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F8FEFD31-6CC7-4403-A682-C2FBC6D8A156}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F8FEFD31-6CC7-4403-A682-C2FBC6D8A156}.Release|Any CPU.Build.0 = Release|Any CPU
-		{0AE59140-64EA-4283-BC25-C8E34970A36B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0AE59140-64EA-4283-BC25-C8E34970A36B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0AE59140-64EA-4283-BC25-C8E34970A36B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0AE59140-64EA-4283-BC25-C8E34970A36B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
