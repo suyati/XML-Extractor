@@ -22,7 +22,7 @@
         /// <param name="xmlNode"></param>
         public static void Extract<T>(this T item, XmlNode xmlNode)
             // The generic parameter should be a class
-            where T : class
+            where T : new()
         {
             // checking whether the xml node present
             if (xmlNode != null)
@@ -97,7 +97,7 @@
         /// <typeparam name="T"></typeparam>
         /// <param name="item"></param>
         /// <param name="xml"></param>
-        public static void Extract<T>(this T item, string xml) where T : class
+        public static void Extract<T>(this T item, string xml) where T : new()
         {
             var xmlDocument = new XmlDocument();
             xmlDocument.LoadXml(xml);
@@ -116,7 +116,7 @@
         /// <param name="xmlNode"></param>
         /// <param name="name"></param>
         /// <param name="property"></param>
-        private static void ExtractPropertyFromNode<T>(T item, XmlNode xmlNode, string name, PropertyInfo property) where T : class
+        private static void ExtractPropertyFromNode<T>(T item, XmlNode xmlNode, string name, PropertyInfo property) where T : new()
         {
             var propertyType = property.PropertyType;
             if (IsStringOrValueType(propertyType))
@@ -136,7 +136,7 @@
         /// <param name="item"></param>
         /// <param name="xmlNode"></param>
         /// <param name="property"></param>
-        private static void ExtractValueFromNode<T>(T item, XmlNode xmlNode, PropertyInfo property) where T : class
+        private static void ExtractValueFromNode<T>(T item, XmlNode xmlNode, PropertyInfo property) where T : new()
         {
             var propertyType = property.PropertyType;
             // Checking whether the type is string or Value Type
@@ -155,7 +155,7 @@
         /// <param name="xmlNode"></param>
         /// <param name="name"></param>
         /// <param name="property"></param>
-        private static void ExtractElementFromNode<T>(T item, XmlNode xmlNode, string name, PropertyInfo property) where T : class
+        private static void ExtractElementFromNode<T>(T item, XmlNode xmlNode, string name, PropertyInfo property) where T : new()
         {
             // Getting the property Type
             var propertyType = property.PropertyType;
@@ -306,7 +306,7 @@
         /// <param name="item"></param>
         /// <param name="property"></param>
         /// <param name="value"></param>
-        private static void SetStringOrValueTypeProperty<T>(T item, PropertyInfo property, object value) where T : class
+        private static void SetStringOrValueTypeProperty<T>(T item, PropertyInfo property, string value) where T : new()
         {
             // Getting the safe Value
             var safeValue = GetStringOrValueTypeSafeValue(property.PropertyType, value);
@@ -321,14 +321,60 @@
         /// <param name="property"></param>
         /// <param name="value"></param>
         /// <returns></returns>
-        private static object GetStringOrValueTypeSafeValue(Type type, object value)
+        private static object GetStringOrValueTypeSafeValue(Type type, string value)
         {
+            // returning default value if string is empty or null
+            if (string.IsNullOrEmpty(value))
+            {
+                return GetDefault(type);
+            }
+
             // Getting the underlying Type if Nullable
             type = Nullable.GetUnderlyingType(type) ?? type;
 
-            // returning the safe value
-            return (value == null) ? null : Convert.ChangeType(value, type);
+            // parsing dateTime
+            if (type == typeof(DateTime) && value is string)
+            {
+                try
+                {
+                    return Convert.ChangeType(value, type);
+                }
+                // Exception may arise if the date format ends with Timezone abbreviations (like EST, IST, etc..)
+                catch (FormatException e)
+                {
+                    bool success = false;
 
+                    // Replacing the timezone off set in defautl format
+                    value = TimezoneHelper.ReplaceOffSetToDefaultFormat(value, out success);
+
+                    if(!success)
+                    {
+                        // Replacing the abbreviation with corresponding Timezone Offset
+                        value = TimezoneHelper.ReplaceTimezoneAbbreviation((string)value);
+                    }
+                }
+            }
+            return Convert.ChangeType(value, type);
+
+        }
+
+        /// <summary>
+        /// To get the default value of a type
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        public static object GetDefault(Type type)
+        {
+            // if Value Type
+            if (type.IsValueType)
+            {
+                // If not nullable
+                if (Nullable.GetUnderlyingType(type) == null)
+                {
+                    return Activator.CreateInstance(type);
+                }
+            }
+            return null;
         }
 
         /// <summary>
@@ -337,11 +383,17 @@
         /// <typeparam name="T"></typeparam>
         /// <param name="item"></param>
         /// <returns></returns>
-        private static object GetObjectPropertyValue<T>(T item, PropertyInfo property) where T : class
+        private static object GetObjectPropertyValue<T>(T item, PropertyInfo property) where T : new()
         {
             var value = property.GetValue(item);
             if (value == null)
             {
+                // Checking for default constructor
+                var constructor = property.PropertyType.GetConstructor(Type.EmptyTypes);
+                if (constructor == null)
+                {
+                    throw new MissingMethodException("No parameterless constructor found for type " + property.PropertyType.Name);
+                }
                 return Activator.CreateInstance(property.PropertyType);
             }
             return value;
