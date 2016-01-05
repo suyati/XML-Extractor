@@ -5,125 +5,127 @@
     using System;
 
     /// <summary>
-    /// The test class for checking string or value type Element Extraction
+    /// The test class for checking string or value type Property Extraction
     /// </summary>
     [TestClass]
-    public class StringOrValueTypeElementExtraction
+    public class StringOrValueTypePropertyExtraction
     {
         /// <summary>
-        /// The test class for value type extraction
+        /// The test class for String or value type property extraction
         /// </summary>
-        private class ValueTypesTestModel
+        private class StringOrValueTypesTestModel
         {
             /// <summary>
             /// The Integer
             /// </summary>
-            [Element(Name = "int")]
+            [Property(Name = "int")]
             public int Int { get; set; }
+
+            /// <summary>
+            /// The String
+            /// </summary>
+            [Property(Name = "string")]
+            public string String { get; set; }
 
             /// <summary>
             /// The Date
             /// </summary>
-            [Element(Name = "date")]
+            [Property(Name = "date")]
             public DateTime Date { get; set; }
 
             /// <summary>
             /// The Double
             /// </summary>
-            [Element(Name = "double")]
+            [Property(Name = "double")]
             public double Double { get; set; }
 
             /// <summary>
             /// The Float
             /// </summary>
-            [Element(Name = "float")]
+            [Property(Name = "float")]
             public float Float { get; set; }
 
             /// <summary>
             /// The Charactor
             /// </summary>
-            [Element(Name = "char")]
+            [Property(Name = "char")]
             public char Char { get; set; }
 
             /// <summary>
             /// The Boolean
             /// </summary>
-            [Element(Name = "bool")]
+            [Property(Name = "bool")]
             public bool Bool { get; set; }
         }
 
         /// <summary>
-        /// The test class for String Or Nullable value type extraction
+        /// The test class for Nullable value type property extraction
         /// </summary>
-        private class StringOrNullableValueTypesTestModel
+        private class NullableValueTypesTestModel
         {
             /// <summary>
             /// The nullable integer
             /// </summary>
-            [Element(Name = "int")]
+            [Property(Name = "int")]
             public int? Int { get; set; }
 
             /// <summary>
             /// The nullable date
             /// </summary>
-            [Element(Name = "date")]
+            [Property(Name = "date")]
             public DateTime? Date { get; set; }
 
             /// <summary>
             /// The nullable double
             /// </summary>
-            [Element(Name = "double")]
+            [Property(Name = "double")]
             public double? Double { get; set; }
 
             /// <summary>
             /// The nullable Float
             /// </summary>
-            [Element(Name = "float")]
+            [Property(Name = "float")]
             public float? Float { get; set; }
 
             /// <summary>
             /// The nullable char
             /// </summary>
-            [Element(Name = "char")]
+            [Property(Name = "char")]
             public char? Char { get; set; }
 
             /// <summary>
             /// The nullable bool
             /// </summary>
-            [Element(Name = "bool")]
+            [Property(Name = "bool")]
             public bool? Bool { get; set; }
-
-            /// <summary>
-            /// The String
-            /// </summary>
-            [Element(Name = "string")]
-            public string String { get; set; }
         }
 
         /// <summary>
-        /// The test method to check the success result of extracting Value Type Elements
+        /// The test method to check the success result of extracting String or Value Type Property
         /// </summary>
         [TestMethod]
-        public void ExtractValueTypeElements_SuccessResult()
+        public void ExtractStringOrValueTypeProperty_SuccessResult()
         {
             // Creating the xml
-            string xml = @"<test>
-                                <int>10</int>
-                                <char>c</char>
-                                <date>10/10/2015</date>
-                                <double>123.5</double>
-                                <float>123.4</float>
-                                <bool>true</bool>
-                             </test>";
+            string xml = @"<test
+                                int='10'
+                                string='test'
+                                char='c'
+                                date='10/10/2015'
+                                double='123.5'
+                                float='123.4'
+                                bool='true'
+                             ></test>";
 
             // Creating the model
-            var model = new ValueTypesTestModel();
+            var model = new StringOrValueTypesTestModel();
 
             // Extracting Contents
             model.Extract(xml);
 
             // Checking Result
             Assert.AreEqual(model.Int, 10);
+            Assert.AreEqual(model.String, "test");
             Assert.AreEqual(model.Char, 'c');
             Assert.AreEqual(model.Date, new DateTime(2015, 10, 10));
             Assert.AreEqual(model.Double, (double)123.5);
@@ -132,22 +134,23 @@
         }
 
         /// <summary>
-        /// The test method to check the default value of extracting Value Type Elements if no value exists
+        /// The test method to check the default value of extracting String or Value Type Property if no value exists
         /// </summary>
         [TestMethod]
-        public void ExtractValueTypeElements_GetDefaultValueIfNoValuePresent()
+        public void ExtractStringOrValueTypeProperty_GetDefaultValueIfNoValuePresent()
         {
             // Creating the xml
             string xml = @"<test></test>";
 
             // Creating the model
-            var model = new ValueTypesTestModel();
+            var model = new StringOrValueTypesTestModel();
 
             // Extracting Contents
             model.Extract(xml);
 
             // Checking Result
             Assert.AreEqual(model.Int, default(int));
+            Assert.AreEqual(model.String, default(string));
             Assert.AreEqual(model.Char, default(char));
             Assert.AreEqual(model.Date, default(DateTime));
             Assert.AreEqual(model.Double, default(double));
@@ -157,24 +160,24 @@
         }
 
         /// <summary>
-        /// The test method to check the success result of extracting String Or Nullable Value Type Elements
+        /// The test method to check the success result of extracting Nullable Value Type Property
         /// </summary>
         [TestMethod]
-        public void ExtractStringOrNullableValueTypeElements_SuccessResult()
+        public void ExtractNullableValueTypeProperty_SuccessResult()
         {
             // Creating the xml
-            string xml = @"<test>
-                                <int>10</int>
-                                <char>c</char>
-                                <date>10/10/2015</date>
-                                <double>123.5</double>
-                                <float>123.4</float>
-                                <bool>true</bool>
-                                <string>test</string>
-                             </test>";
-
+            string xml = @"<test
+                                int='10'
+                                string='test'
+                                char='c'
+                                date='10/10/2015'
+                                double='123.5'
+                                float='123.4'
+                                bool='true'
+                             ></test>";
+ 
             // Creating the model
-            var model = new StringOrNullableValueTypesTestModel();
+            var model = new NullableValueTypesTestModel();
 
             // Extracting Contents
             model.Extract(xml);
@@ -182,7 +185,6 @@
             // Checking Result
             Assert.AreEqual(model.Int, 10);
             Assert.AreEqual(model.Char, 'c');
-            Assert.AreEqual(model.String, "test");
             Assert.AreEqual(model.Date, new DateTime(2015, 10, 10));
             Assert.AreEqual(model.Double, (double)123.5);
             Assert.AreEqual(model.Float, (float)123.4);
@@ -191,28 +193,28 @@
         }
 
         /// <summary>
-        /// The test method to check the default value of extracting String Or Nullable Value Type Elements if no value exists
+        /// The test method to check the default value of extracting Nullable Value Type Property if no value exists
         /// </summary>
         [TestMethod]
-        public void ExtractStringOrNullableValueTypeElements_GetNullIfNoValuePresent()
+        public void ExtractNullableValueTypeProperty_GetNullIfNoValuePresent()
         {
             // Creating the xml
             string xml = @"<test></test>";
 
             // Creating the model
-            var model = new StringOrNullableValueTypesTestModel();
+            var model = new NullableValueTypesTestModel();
 
             // Extracting Contents
             model.Extract(xml);
 
             // Checking Result
-            Assert.IsNull(model.Int);
-            Assert.IsNull(model.Char);
-            Assert.IsNull(model.Date);
-            Assert.IsNull(model.Double);
-            Assert.IsNull(model.Float);
-            Assert.IsNull(model.Bool);
-            Assert.IsNull(model.String);
+            Assert.AreEqual(model.Int, null);
+            Assert.AreEqual(model.Char, null);
+            Assert.AreEqual(model.Date, null);
+            Assert.AreEqual(model.Double, null);
+            Assert.AreEqual(model.Float, null);
+            Assert.AreEqual(model.Bool, null);
+
         }
     }
 }

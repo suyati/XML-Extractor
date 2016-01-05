@@ -52,12 +52,11 @@
   </Choose>
   <ItemGroup>
     <Compile Include="ContentElement.cs" />
-    <Compile Include="XMLConverter\StringOrValueTypeElementConversion.cs" />
-    <Compile Include="XMLConverter\StringOrValueTypeValueConversion.cs" />
-    <Compile Include="XMLConverter\StringOrValueTypePropertyConversion.cs" />
-    <Compile Include="XMLEctractor\StringOrValueTypeElementExtraction.cs" />
+    <Compile Include="StringOrValueTypeValueExtraction.cs" />
+    <Compile Include="StringOrValueTypePropertyExtraction.cs" />
+    <Compile Include="StringOrValueTypeElementExtraction.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="XMLEctractor\DateTimeFormatTests.cs" />
+    <Compile Include="DateTimeFormatTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\XmlExtractor\Suyati.XmlExtractor.csproj">
