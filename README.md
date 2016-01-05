@@ -16,6 +16,8 @@ PM> Install-Package XMLExtractor
 
 It is recommended that you install XMLExtractor via NuGet.Or Add a reference to the XMLExtractor.dll
 
+###XML Extarction
+
 1) Create a model class to map the XML.
 
 ```csharp
@@ -70,6 +72,15 @@ myObject.Extract(
 
 You can also pass an object of XmlNode class to the Extract() method instead of XML string.
 
+###XML Convertion
+
+You can also convert the model to XML Document.
+
+```csharp
+XmlDocument xmlDocument = model.ToXml("rootName");
+```
+
+You can avoid the root element name, it will take the class name as root name.
 
 ##Authors and Contributors
 
